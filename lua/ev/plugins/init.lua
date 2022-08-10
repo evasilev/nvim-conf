@@ -83,7 +83,7 @@ return packer.startup {
 
     use {                                                                       
       'williamboman/nvim-lsp-installer',                                        
-      config = [[require('plugins.lsp-installer')]],
+      config = [[require('ev.plugins.lsp-installer')]],
       after = 'nvim-lspconfig'
     }
 
@@ -132,7 +132,7 @@ return packer.startup {
     use {
       'nvim-telescope/telescope.nvim',
       event = "VimEnter",
-      config = [[require('plugins.telescope')]],
+      config = [[require('ev.plugins.telescope')]],
       requires = {
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         { "nvim-telescope/telescope-file-browser.nvim" },
