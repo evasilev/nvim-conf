@@ -47,3 +47,16 @@ autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", ti
 augroup end
 ]], false)
 
+if vim.g.neovide then
+  vim.g.neovide_refresh_rate = 60
+  vim.g.neovide_transparency = 0.8
+  vim.g.neovide_floating_blur_amount_x = 2.0
+  vim.g.neovide_floating_blur_amount_y = 2.0
+  vim.g.neovide_cursor_animation_length = 0.01
+  vim.g.neovide_cursor_vfx_mode = "pixiedust"
+  vim.g.neovide_cursor_vfx_particle_density = 7.0
+  vim.g.neovide_input_use_logo = true
+--  vim.g.neovide_background_color = '#f01117'.printf('%x', float2nr(255 * g:transparency))
+end
+
+vim.opt.guifont = { "JetBrainsMono NF", "h12" }
