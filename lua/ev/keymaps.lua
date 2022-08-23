@@ -1,6 +1,8 @@
 local map = vim.api.nvim_set_keymap
 local dopts = {noremap = true, silent = true}
 
+vim.g.mapleader = ' '
+
 -- System clip shift+Y
 map('v', 'S-Y', '"+y', {})
 
