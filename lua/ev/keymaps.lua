@@ -20,3 +20,7 @@ map('v', '<', '<gv', dopts)
 
 -- unbind Q
 map('n', 'Q', '<nop>', dopts)
+
+--
+map('n', '<leader>h', ':wincmd h<CR>', {noremap = true, silent = false})
+map('n', '<leader>pv', ':wincmd v<bar> :Ex <bar> :vertical resize 30<CR>', {noremap = true, silent = false})

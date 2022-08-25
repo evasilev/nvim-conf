@@ -63,7 +63,18 @@ return packer.startup {
         vim.api.nvim_set_keymap('n', '<c-n>', ':Alpha<cr>', {noremap = true})
       end
     }
-    
+
+    use {
+      'ThePrimeagen/harpoon',
+      config = function()
+        require("harpoon").setup({
+          menu = {
+            width = vim.api.nvim_win_get_width(0) - 4,
+          }
+        })
+      end
+    }
+
 --    use { 
 --      'nvim-treesitter/nvim-treesitter',
 --      -- run = ':TSUpdate',
@@ -109,7 +120,9 @@ return packer.startup {
     use {
       'hrsh7th/nvim-cmp',
       event = { 'InsertEnter', 'CmdLineEnter' },
-      config = [[require('ev.plugins.cmp')]],
+      config = function()
+        require('ev.plugins.cmp')
+      end,
       wants = { 'LuaSnip' },
       requires = {
         { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' },
@@ -131,12 +144,15 @@ return packer.startup {
     
     use {
       'nvim-telescope/telescope.nvim',
-      event = "VimEnter",
-      config = [[require('ev.plugins.telescope')]],
+      event = 'VimEnter',
+      config = function() 
+        require('ev.plugins.telescope')
+      end,
       requires = {
-        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-        { "nvim-telescope/telescope-file-browser.nvim" },
-        { "nvim-telescope/telescope-live-grep-raw.nvim" },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+        { 'nvim-telescope/telescope-file-browser.nvim' },
+        { 'nvim-telescope/telescope-live-grep-raw.nvim' },
+        { 'ThePrimeagen/harpoon' },
       }
     }
     
