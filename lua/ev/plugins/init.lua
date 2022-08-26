@@ -45,7 +45,9 @@ return packer.startup {
           })
      end
       },
-      config = [[require('ev.plugins.lualine')]], 
+      config = function()
+        require('ev.plugins.lualine')
+      end, 
     }
     
     use { 
@@ -64,37 +66,73 @@ return packer.startup {
       end
     }
 
-    use {
-      'ThePrimeagen/harpoon',
-      config = function()
-        require("harpoon").setup({
-          menu = {
-            width = vim.api.nvim_win_get_width(0) - 4,
-          }
-        })
-      end
-    }
-
---    use { 
---      'nvim-treesitter/nvim-treesitter',
---      -- run = ':TSUpdate',
---      run = function() 
---        require('nvim-treesitter.install').update({ with_sync = true })
---      end,
---      config = [[require('plugins.treesitter')]]
---    }
+		use {
+			'kyazdani42/nvim-tree.lua',
+			requires = {
+				'kyazdani42/nvim-web-devicons', -- optional, for file icons
+			},
+			tag = 'nightly' -- optional, updated every week. (see issue #1193)
+			config = function()
+				require'nvim-tree'.setup{
+					actions = {
+							open_file = {
+								quit_on_open = true,
+							},
+					},
+				}
+        
+				vim.api.nvim_set_keymap(
+          'n', 
+          '<leader>vv', 
+          [[:NvimTreeToggle<CR>]], 
+          { noremap = true, silent = true }
+        )
+				vim.api.nvim_set_keymap(
+          'n', 
+          '<leader>tf', 
+          [[:NvimTreeFindFile<CR>]], 
+          { noremap = true, silent = true }
+        )
+			end
+		}
     
+		use {
+      'nvim-telescope/telescope.nvim',
+      event = 'VimEnter',
+      config = function()
+        require('ev.plugins.telescope')
+      end,
+      requires = {
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = "make" },
+        { 'nvim-telescope/telescope-file-browser.nvim' },
+        { 'nvim-telescope/telescope-live-grep-raw.nvim' },
+      }
+    }
+    
+    -- Tree sitter
+    use { 
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate',
+      config = function()
+       require('ev.plugins.treesitter')
+      end,
+    }
+  
 -- lsp
 
     use {
       'neovim/nvim-lspconfig',
       event = 'BufReadPre',
-      config = [[require('ev.plugins.lsp')]]
+      config = function()
+        require('ev.plugins.lsp')
+      end,
     }
 
     use {                                                                       
       'williamboman/nvim-lsp-installer',                                        
-      config = [[require('ev.plugins.lsp-installer')]],
+      config = function()
+        require('ev.plugins.lsp-installer')
+      end,
       after = 'nvim-lspconfig'
     }
 
@@ -114,7 +152,14 @@ return packer.startup {
         }
       end,
     }
-    
+
+    use {
+			"ahmedkhalf/lsp-rooter.nvim",
+			config = function()
+				require("lsp-rooter").setup()
+ 			end
+		}
+
     -- зависимости для движка автодополнения
     -- движок автодополнения для LSP
     use {
@@ -139,21 +184,9 @@ return packer.startup {
     use {
       'L3MON4D3/LuaSnip',
       event = 'InsertEnter',
-      config = [[require('ev.plugins.snippets')]],
-    }
-    
-    use {
-      'nvim-telescope/telescope.nvim',
-      event = 'VimEnter',
-      config = function() 
-        require('ev.plugins.telescope')
+      config = function()
+        require('ev.plugins.snippets')
       end,
-      requires = {
-        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-        { 'nvim-telescope/telescope-file-browser.nvim' },
-        { 'nvim-telescope/telescope-live-grep-raw.nvim' },
-        { 'ThePrimeagen/harpoon' },
-      }
     }
     
     use {
@@ -165,6 +198,14 @@ return packer.startup {
         require('go').setup()
       end
     }
+
+    use({
+      'ray-x/navigator.lua',
+      requires = {
+        { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
+        { 'neovim/nvim-lspconfig' },
+      },
+    })
 
     use {
       'akinsho/toggleterm.nvim',
@@ -196,7 +237,8 @@ return packer.startup {
         })
       end
     }
-
+    
+    -- Hotkeys helpt
     use {
       "folke/which-key.nvim",
       config = function()
