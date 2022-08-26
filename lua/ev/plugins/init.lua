@@ -66,37 +66,35 @@ return packer.startup {
       end
     }
 
-		use {
-			'kyazdani42/nvim-tree.lua',
-			requires = {
-				'kyazdani42/nvim-web-devicons', -- optional, for file icons
-			},
-			tag = 'nightly' -- optional, updated every week. (see issue #1193)
-			config = function()
-				require'nvim-tree'.setup{
-					actions = {
-							open_file = {
-								quit_on_open = true,
-							},
+	use {
+	'kyazdani42/nvim-tree.lua',
+	requires = { 'kyazdani42/nvim-web-devicons' },  -- optional, for file icons
+	tag = 'nightly', -- optional, updated every week. (see issue #1193)
+	config = function()
+		require('nvim-tree').setup{
+			actions = {
+					open_file = {
+						quit_on_open = true,
 					},
-				}
-        
-				vim.api.nvim_set_keymap(
+			},
+		}
+
+	vim.api.nvim_set_keymap(
           'n', 
           '<leader>vv', 
           [[:NvimTreeToggle<CR>]], 
           { noremap = true, silent = true }
         )
-				vim.api.nvim_set_keymap(
+	vim.api.nvim_set_keymap(
           'n', 
           '<leader>tf', 
           [[:NvimTreeFindFile<CR>]], 
           { noremap = true, silent = true }
         )
-			end
-		}
+	end
+	}
     
-		use {
+    use {
       'nvim-telescope/telescope.nvim',
       event = 'VimEnter',
       config = function()
