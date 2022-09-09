@@ -39,6 +39,10 @@ cmd([[
 autocmd FileType xml,html,xhtml,css,scss,javascript,lua,yaml,htmljinja setlocal shiftwidth=2 tabstop=2
 ]])
 
+cmd([[
+autocmd FileType stylus setlocal shiftwidth=2 tabstop=2 noexpandtab list 
+]])
+
 -- Подсвечивает на доли секунды скопированную часть текста
 exec([[
 augroup YankHighlight

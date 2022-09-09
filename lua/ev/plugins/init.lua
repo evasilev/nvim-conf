@@ -32,24 +32,25 @@ return packer.startup {
     -- Colorschemes
     use 'shaunsingh/nord.nvim'
     use 'folke/tokyonight.nvim'
+    
+    use {
+      'kyazdani42/nvim-web-devicons', 
+      config = function()
+        require('nvim-web-devicons').setup({
+          override = {},
+          default = true
+        })
+      end
+    }
 
     use { 
       'nvim-lualine/lualine.nvim',
-      requires = {
-        'kyazdani42/nvim-web-devicons', 
-        opt = true,
-        config = function()
-          require('nvim-web-devicons').setup({
-            override = {},
-            default = true
-          })
-     end
-      },
+       requires = { 'kyazdani42/nvim-web-devicons' }, 
       config = function()
         require('ev.plugins.lualine')
       end, 
     }
-    
+
     use { 
       'goolord/alpha-nvim',
       requires = { 'kyazdani42/nvim-web-devicons' },
@@ -66,34 +67,40 @@ return packer.startup {
       end
     }
 
-	use {
-	'kyazdani42/nvim-tree.lua',
-	requires = { 'kyazdani42/nvim-web-devicons' },  -- optional, for file icons
-	tag = 'nightly', -- optional, updated every week. (see issue #1193)
-	config = function()
-		require('nvim-tree').setup{
-			actions = {
-					open_file = {
-						quit_on_open = true,
-					},
-			},
-		}
+    use {
+      'kyazdani42/nvim-tree.lua',
+      requires = { 'kyazdani42/nvim-web-devicons' },  -- optional, for file icons
+      tag = 'nightly', -- optional, updated every week. (see issue #1193)
+      config = function()
+        require('nvim-tree').setup{
+          sync_root_with_cwd = true,
+          respect_buf_cwd = true,
+          update_focused_file = {
+            enable = true,
+            update_root = true
+          },
+          actions = {
+            open_file = {
+              quit_on_open = true,
+            },
+          },
+        }
 
-	vim.api.nvim_set_keymap(
-          'n', 
-          '<leader>vv', 
-          [[:NvimTreeToggle<CR>]], 
-          { noremap = true, silent = true }
+        vim.api.nvim_set_keymap(
+        'n', 
+        '<leader>vv', 
+        [[:NvimTreeToggle<CR>]], 
+        { noremap = true, silent = true }
         )
-	vim.api.nvim_set_keymap(
-          'n', 
-          '<leader>tf', 
-          [[:NvimTreeFindFile<CR>]], 
-          { noremap = true, silent = true }
+        vim.api.nvim_set_keymap(
+        'n', 
+        '<leader>tf', 
+        [[:NvimTreeFindFile<CR>]], 
+        { noremap = true, silent = true }
         )
-	end
-	}
-    
+      end
+    }
+
     use {
       'nvim-telescope/telescope.nvim',
       event = 'VimEnter',
@@ -106,17 +113,24 @@ return packer.startup {
         { 'nvim-telescope/telescope-live-grep-raw.nvim' },
       }
     }
-    
+
     -- Tree sitter
     use { 
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       config = function()
-       require('ev.plugins.treesitter')
+        require('ev.plugins.treesitter')
       end,
     }
-  
--- lsp
+
+    use {
+      "ahmedkhalf/project.nvim",
+      config = function()
+        require("project_nvim").setup()
+      end
+    }
+
+    -- lsp
 
     use {
       'neovim/nvim-lspconfig',
@@ -151,13 +165,6 @@ return packer.startup {
       end,
     }
 
-    use {
-			"ahmedkhalf/lsp-rooter.nvim",
-			config = function()
-				require("lsp-rooter").setup()
- 			end
-		}
-
     -- зависимости для движка автодополнения
     -- движок автодополнения для LSP
     use {
@@ -186,7 +193,7 @@ return packer.startup {
         require('ev.plugins.snippets')
       end,
     }
-    
+
     use {
       'ray-x/go.nvim',
       requires = {
@@ -212,20 +219,20 @@ return packer.startup {
           direction = 'float'
         })
         vim.api.nvim_set_keymap(
-	        'n', 
-	        'ttm', 
-	        ':ToggleTerm<cr>', 
-	        { noremap = true, silent = true }
-	      )
+        'n', 
+        'ttm', 
+        ':ToggleTerm<cr>', 
+        { noremap = true, silent = true }
+        )
         vim.api.nvim_set_keymap(
-          't', 
-          '<c-o>', 
-          [[<C-\><C-n>]], 
-          { noremap = true, silent = true }
+        't', 
+        '<c-o>', 
+        [[<C-\><C-n>]], 
+        { noremap = true, silent = true }
         )
       end
     }
-    
+
     use 'tpope/vim-surround'
     use {
       'windwp/nvim-autopairs',
@@ -235,15 +242,22 @@ return packer.startup {
         })
       end
     }
-    
+
     -- Hotkeys helpt
     use {
-      "folke/which-key.nvim",
+      'folke/which-key.nvim',
       config = function()
-        require("which-key").setup()
+        require('which-key').setup()
       end
     }
-    
+
+    use {
+      'mattn/emmet-vim'
+    }
+
+    use {
+      'iloginow/vim-stylus'
+    }
     -- Automatically set up conf after cloning packer.nvim
     if packer_bootstrap then
       require('packer').sync()

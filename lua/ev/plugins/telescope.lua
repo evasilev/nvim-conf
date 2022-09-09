@@ -10,9 +10,11 @@ require('telescope').setup {
 	}
 }
 
-require('telescope').load_extension('harpoon')
+-- require('telescope').load_extension('harpoon')
+require('telescope').load_extension('projects')
 
 -- setup hotkeys
 map('n', '<leader>ff', '<cmd>Telescope find_files<CR>', opts)
 map('n', '<leader>fg', '<cmd>Telescope live_grep<CR>', opts)
 map('n', '<leader>fb', '<cmd>Telescope buffers<CR>', opts)
+map('n', '<leader>fp', '<cmd>Telescope projects<CR>', opts)
