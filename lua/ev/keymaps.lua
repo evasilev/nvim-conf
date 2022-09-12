@@ -20,6 +20,7 @@ map('v', '<', '<gv', dopts)
 
 -- unbind Q
 map('n', 'Q', '<nop>', dopts)
+map('', '<f1>', '<nop>', dopts)
 
 --
 map('n', '<leader>h', ':wincmd h<CR>', {noremap = true, silent = false})
