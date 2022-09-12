@@ -63,4 +63,10 @@ if g.neovide then
 --  vim.g.neovide_background_color = '#f01117'.printf('%x', float2nr(255 * g:transparency))
 end
 
-opt.guifont = { "JetBrainsMono NF", "h12" }
+-- opt.guifont = { "JetBrainsMono NF", "h14" }
+
+-- font zoomer vars
+g.gui_font_default_size = 14
+g.gui_font_size = vim.g.gui_font_default_size
+g.gui_font_face = "JetBrainsMono NF"
+
