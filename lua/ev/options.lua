@@ -36,13 +36,20 @@ opt.tabstop = 4           -- 1 tab == 4 spaces
 opt.smartindent = true    -- autoindent new lines
 -- 2 spaces for selected filetypes
 cmd([[
-autocmd FileType xml,html,xhtml,css,scss,javascript,lua,yaml,htmljinja setlocal shiftwidth=2 tabstop=2
+autocmd FileType xml,html,xhtml,css,scss,javascript,lua,yaml,htmljinja,tsx,ts setlocal shiftwidth=2 tabstop=2
 ]])
 
 cmd([[
 autocmd FileType stylus setlocal shiftwidth=2 tabstop=2 noexpandtab list 
 ]])
 
+cmd([[
+autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+]])
+
+cmd([[
+autocmd BufNewFile,BufRead *tsx setlocal filetype=typescript.tsx
+]])
 -- Подсвечивает на доли секунды скопированную часть текста
 exec([[
 augroup YankHighlight

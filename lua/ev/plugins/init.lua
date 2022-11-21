@@ -258,6 +258,14 @@ return packer.startup {
     use {
       'iloginow/vim-stylus'
     }
+
+    use {
+      'ianks/vim-tsx'
+    }
+
+    use {
+      'leafgarland/typescript-vim'
+    }
     -- Automatically set up conf after cloning packer.nvim
     if packer_bootstrap then
       require('packer').sync()
